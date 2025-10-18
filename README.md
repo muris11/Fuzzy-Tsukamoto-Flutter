@@ -406,7 +406,7 @@ SOFTWARE.
 - 📖 **Documentation**: Baca README lengkap
 - 💬 **Discussions**: GitHub Discussions untuk Q&A
 - 🐛 **Issues**: GitHub Issues untuk bug reports
-- 📧 **Email**: rifqysaputra@gmail.com untuk pertanyaan teknis
+- 📧 **Email**: rifqysaputra1102@gmail.com untuk pertanyaan teknis
 
 ### 🔗 Links
 
