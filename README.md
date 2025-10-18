@@ -383,7 +383,7 @@ SOFTWARE.
 
 **Muhammad Rifqy Saputra**
 
-- 📧 Email: rifqysaputra@gmail.com
+- 📧 Email: rifqysaputra1102@gmail.com
 - 🎓 Program Studi: D4 Sistem Informasi Kota Cerdas (SIKC)
 - 🏫 Institusi: Politeknik Negeri Indramayu (POLINDRA)
 - 📅 Tahun: 2025
