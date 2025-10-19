@@ -24,11 +24,11 @@
 
 <div align="center">
 
-| Home Screen                                  | Diagnosa Gejala                              | Info Penyakit                                |
+| Home Screen                                  | Diagnosa Gejala                              | Hasil Diagnoas                               |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | <img src="assets/images/1.jpg" width="250"/> | <img src="assets/images/2.jpg" width="250"/> | <img src="assets/images/3.jpg" width="250"/> |
 
-| Hasil Diagnosa                               | Laporan PDF                                  | Info Aplikasi                                |
+| Laporan PDF                                  | Info Penyakit                                | Info Aplikasi                                |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | <img src="assets/images/4.jpg" width="250"/> | <img src="assets/images/5.jpg" width="250"/> | <img src="assets/images/6.jpg" width="250"/> |
 
