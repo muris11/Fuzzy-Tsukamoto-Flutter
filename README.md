@@ -29,16 +29,16 @@
 
 <div align="center">
 
-| Home Screen                                  | Hasil Diagnosis                              | Kemungkinan Penyakit Lain                     |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| Home Screen                                            | Hasil Diagnosis                                              | Kemungkinan Penyakit Lain                                           |
+| ------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------- |
 | <img src="assets/images/home_screen.jpg" width="250"/> | <img src="assets/images/hasil_pemeriksaan.jpg" width="250"/> | <img src="assets/images/kemunkinan penyakit lain.jpg" width="250"/> |
 
-| Rekomendasi Obat                             | Info Penyakit                                | Laporan PDF                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| Rekomendasi Obat                                            | Info Penyakit                                            | Laporan PDF                                            |
+| ----------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------ |
 | <img src="assets/images/rekomendasi obat.jpg" width="250"/> | <img src="assets/images/info penyakit.jpg" width="250"/> | <img src="assets/images/laporan pdf.jpg" width="250"/> |
 
-| Tentang Aplikasi                            |
-| -------------------------------------------- |
+| Tentang Aplikasi                                   |
+| -------------------------------------------------- |
 | <img src="assets/images/tentang.jpg" width="250"/> |
 
 </div>
