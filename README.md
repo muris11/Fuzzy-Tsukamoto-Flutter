@@ -1,5 +1,9 @@
 # 🩺 DiagnoFuzzy - Sistem Diagnosa Cerdas Berbasis Fuzzy Logic
 
+<div align="center">
+  <img src="assets/images/logo.png" alt="DiagnoFuzzy Logo" width="120"/>
+</div>
+
 [![Flutter](https://img.shields.io/badge/Flutter-3.29.2-02569B?style=for-the-badge&logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.7.2-0175C2?style=for-the-badge&logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
@@ -25,24 +29,29 @@
 
 <div align="center">
 
-| Home Screen                                  | Diagnosa Gejala                              | Hasil Diagnosis                              |
+| Home Screen                                  | Hasil Diagnosis                              | Kemungkinan Penyakit Lain                     |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| <img src="assets/images/screenshot_home.jpg" width="250"/> | <img src="assets/images/screenshot_diagnosis.jpg" width="250"/> | <img src="assets/images/screenshot_results.jpg" width="250"/> |
+| <img src="assets/images/home_screen.jpg" width="250"/> | <img src="assets/images/hasil_pemeriksaan.jpg" width="250"/> | <img src="assets/images/kemunkinan penyakit lain.jpg" width="250"/> |
 
 | Rekomendasi Obat                             | Info Penyakit                                | Laporan PDF                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| <img src="assets/images/screenshot_medications.jpg" width="250"/> | <img src="assets/images/screenshot_diseases.jpg" width="250"/> | <img src="assets/images/screenshot_pdf.jpg" width="250"/> |
+| <img src="assets/images/rekomendasi obat.jpg" width="250"/> | <img src="assets/images/info penyakit.jpg" width="250"/> | <img src="assets/images/laporan pdf.jpg" width="250"/> |
+
+| Tentang Aplikasi                            |
+| -------------------------------------------- |
+| <img src="assets/images/tentang.jpg" width="250"/> |
 
 </div>
 
 ### 🎥 Fitur Utama dalam Screenshots
 
-1. **Splash Screen & Navigation** - Interface modern dengan bottom navigation dan animasi smooth
-2. **Form Diagnosa** - Input gejala dengan dropdown animasi dan slider premium
-3. **Hasil Diagnosis** - Tampilan hasil dengan confidence level, certainty score, dan rekomendasi obat
+1. **Home Screen & Navigation** - Interface modern dengan bottom navigation dan animasi smooth
+2. **Hasil Diagnosis** - Tampilan hasil diagnosis dengan confidence level dan certainty score
+3. **Kemungkinan Penyakit Lain** - Analisis komprehensif semua kemungkinan penyakit dengan skor lengkap
 4. **Rekomendasi Obat** - Informasi lengkap obat dengan dosis, efek samping, dan penjelasan dalam bahasa Indonesia
-5. **Database Penyakit** - Informasi lengkap 6 penyakit dengan swipe navigation dan emoji visual
+5. **Info Penyakit** - Database penyakit lengkap dengan swipe navigation dan emoji visual
 6. **Laporan PDF Modern** - Generate dan download laporan hasil diagnosa dengan desain modern
+7. **Tentang Aplikasi** - Informasi lengkap tentang aplikasi, algoritma fuzzy, dan panduan penggunaan
 
 ---
 
