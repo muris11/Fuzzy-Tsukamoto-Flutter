@@ -12,10 +12,10 @@ class PredictService {
   final ApiClient _api;
   PredictService(this._api);
 
-  Future<Map<String, dynamic>> schema() => _api.getJson('/v1/schema');
+  Future<Map<String, dynamic>> schema() => _api.getJson('/api/health');
 
   Future<PredictResponse> predict(PredictRequest req) async {
-    final data = await _api.postJson('/v1/predict', req.toJson());
+    final data = await _api.postJson('/v1/predict', req.toJson()); // Updated endpoint to match API documentation
     return PredictResponse.fromJson(data);
   }
 }

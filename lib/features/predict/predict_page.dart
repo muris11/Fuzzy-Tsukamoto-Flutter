@@ -192,23 +192,25 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
   }
 
   Widget _modernFormCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Form(
-        key: _formKey,
-        child: Column(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -262,6 +264,7 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
           ],
         ),
       ),
+    ),
     );
   }
 
@@ -304,64 +307,118 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
   Widget _buildModernDropdowns() {
     final formData = ref.watch(formDataProvider);
     final symptoms = {
-      "fever": {"label": "Demam", "icon": Icons.thermostat},
-      "cough": {"label": "Batuk", "icon": Icons.sick},
-      "sore_throat": {"label": "Sakit Tenggorokan", "icon": Icons.healing},
-      "headache": {"label": "Sakit Kepala", "icon": Icons.psychology},
-      "body_ache": {"label": "Nyeri Otot/Pegal", "icon": Icons.fitness_center},
-      "nausea_vomit": {"label": "Mual/Muntah", "icon": Icons.restaurant_menu},
-      "diarrhea": {"label": "Diare", "icon": Icons.local_hospital},
-      "abdominal_pain": {"label": "Nyeri Perut", "icon": Icons.medication},
-      "rash": {"label": "Ruam Kulit", "icon": Icons.colorize},
-      "fatigue": {"label": "Lemas/Kelelahan", "icon": Icons.battery_2_bar},
+      "fever": {"label": "Demam", "icon": Icons.thermostat_rounded, "color": const Color(0xFFEF4444)},
+      "cough": {"label": "Batuk", "icon": Icons.air_rounded, "color": const Color(0xFF06B6D4)},
+      "sore_throat": {"label": "Sakit Tenggorokan", "icon": Icons.record_voice_over_rounded, "color": const Color(0xFFF59E0B)},
+      "headache": {"label": "Sakit Kepala", "icon": Icons.psychology_rounded, "color": const Color(0xFF8B5CF6)},
+      "body_ache": {"label": "Nyeri Otot/Pegal", "icon": Icons.fitness_center_rounded, "color": const Color(0xFF10B981)},
+      "nausea_vomit": {"label": "Mual/Muntah", "icon": Icons.sentiment_dissatisfied_rounded, "color": const Color(0xFFEC4899)},
+      "diarrhea": {"label": "Diare", "icon": Icons.water_drop_rounded, "color": const Color(0xFF14B8A6)},
+      "abdominal_pain": {"label": "Nyeri Perut", "icon": Icons.medication_rounded, "color": const Color(0xFF3B82F6)},
+      "rash": {"label": "Ruam Kulit", "icon": Icons.healing_rounded, "color": const Color(0xFFF97316)},
+      "fatigue": {"label": "Lemas/Kelelahan", "icon": Icons.battery_2_bar_rounded, "color": const Color(0xFF6366F1)},
     };
 
     return Column(
       children: symptoms.entries.map((entry) {
         final key = entry.key;
         final symptom = entry.value;
+        final isActive = formData.answers[key] != "tidak";
+        final symptomColor = symptom["color"] as Color;
         
-        return Container(
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-            color: const Color(0xFFF8FAFC),
-            borderRadius: BorderRadius.circular(16),
+            gradient: isActive
+              ? LinearGradient(
+                  colors: [
+                    symptomColor.withOpacity(0.05),
+                    symptomColor.withOpacity(0.02),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+            color: isActive ? null : const Color(0xFFF8FAFC),
+            borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: formData.answers[key] != "tidak" 
-                ? const Color(0xFF6366F1).withOpacity(0.3)
+              color: isActive 
+                ? symptomColor.withOpacity(0.4)
                 : const Color(0xFFE2E8F0),
+              width: isActive ? 2 : 1,
             ),
+            boxShadow: isActive
+              ? [
+                  BoxShadow(
+                    color: symptomColor.withOpacity(0.1),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : [],
           ),
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: symptom["label"] as String,
               labelStyle: GoogleFonts.poppins(
-                color: const Color(0xFF64748B),
-                fontWeight: FontWeight.w500,
+                color: isActive ? symptomColor : const Color(0xFF64748B),
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
               ),
-              prefixIcon: Icon(
-                symptom["icon"] as IconData,
-                color: formData.answers[key] != "tidak" 
-                  ? const Color(0xFF6366F1)
-                  : const Color(0xFF94A3B8),
+              prefixIcon: Container(
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: isActive 
+                    ? symptomColor.withOpacity(0.15)
+                    : const Color(0xFFE2E8F0).withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  symptom["icon"] as IconData,
+                  color: isActive ? symptomColor : const Color(0xFF94A3B8),
+                  size: 22,
+                ),
               ),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(20),
+              contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             ),
             value: formData.answers[key],
             style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xFF1E293B),
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: isActive ? symptomColor.withOpacity(0.9) : const Color(0xFF1E293B),
             ),
             dropdownColor: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            icon: Icon(
+              Icons.arrow_drop_down_circle_rounded,
+              color: isActive ? symptomColor : const Color(0xFF94A3B8),
+            ),
             items: options.map((option) => DropdownMenuItem(
               value: option,
-              child: Text(
-                option.toUpperCase(),
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                ),
+              child: Row(
+                children: [
+                  if (option != "tidak") ...[
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: _getOptionColor(option),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
+                  Text(
+                    option.toUpperCase(),
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: _getOptionColor(option),
+                    ),
+                  ),
+                ],
               ),
             )).toList(),
             onChanged: (value) {
@@ -375,43 +432,132 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
     );
   }
 
+  Color _getOptionColor(String option) {
+    switch (option) {
+      case "sangat berat":
+        return const Color(0xFFDC2626);
+      case "berat":
+        return const Color(0xFFEF4444);
+      case "sedang":
+        return const Color(0xFFF59E0B);
+      case "ringan":
+        return const Color(0xFF10B981);
+      case "sering":
+        return const Color(0xFFEF4444);
+      case "kadang":
+        return const Color(0xFF10B981);
+      case "ya":
+        return const Color(0xFF3B82F6);
+      default:
+        return const Color(0xFF64748B);
+    }
+  }
+
   Widget _thresholdSlider() {
     final formData = ref.watch(formDataProvider);
     
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xFF6366F1).withOpacity(0.05),
+            const Color(0xFF8B5CF6).withOpacity(0.05),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: const Color(0xFF6366F1).withOpacity(0.2),
+          width: 2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.tune_rounded,
-                color: Color(0xFF6366F1),
-                size: 20,
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF6366F1).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.tune_rounded,
+                  color: Color(0xFF6366F1),
+                  size: 22,
+                ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                "Ambang Batas Peringatan",
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1E293B),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Ambang Batas Peringatan",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF1E293B),
+                      ),
+                    ),
+                    Text(
+                      "Sesuaikan tingkat sensitifitas",
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: const Color(0xFF64748B),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Skor minimal untuk memicu peringatan: ${formData.ambang.round()}%",
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: const Color(0xFF64748B),
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Skor minimal:",
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF64748B),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "${formData.ambang.round()}%",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -419,10 +565,16 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: const Color(0xFF6366F1),
               inactiveTrackColor: const Color(0xFFE2E8F0),
-              thumbColor: const Color(0xFF6366F1),
+              thumbColor: Colors.white,
               overlayColor: const Color(0xFF6366F1).withOpacity(0.2),
-              trackHeight: 6,
-              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
+              trackHeight: 8,
+              thumbShape: const RoundSliderThumbShape(
+                enabledThumbRadius: 14,
+                elevation: 4,
+              ),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 24),
+              activeTickMarkColor: Colors.transparent,
+              inactiveTickMarkColor: Colors.transparent,
             ),
             child: Slider(
               value: formData.ambang,
@@ -435,6 +587,35 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
               },
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "0%",
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFF10B981),
+                ),
+              ),
+              Text(
+                "50%",
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFFF59E0B),
+                ),
+              ),
+              Text(
+                "100%",
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFFEF4444),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -443,46 +624,75 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
   Widget _predictButton() {
     return Container(
       width: double.infinity,
-      height: 56,
+      height: 60,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+          colors: [Color(0xFF6366F1), Color(0xFF8B5CF6), Color(0xFF7C3AED)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF6366F1).withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: const Color(0xFF6366F1).withOpacity(0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(16),
-          onTap: _onPredict,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.psychology_rounded,
-                color: Colors.white,
-                size: 24,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: _onPredict,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.psychology_rounded,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Flexible(
+                    child: Text(
+                      "Analisis Gejala Sekarang",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 12),
-              Text(
-                "Analisis Gejala",
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -705,10 +915,14 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
               ),
             ),
           const SizedBox(height: 20),
+          if (resp.medicationRecommendations != null && resp.medicationRecommendations!.isNotEmpty) ...[
+            _medicationRecommendationsCard(resp),
+            const SizedBox(height: 20),
+          ],
           const Divider(color: Color(0xFFE2E8F0)),
           const SizedBox(height: 16),
           Text(
-            "Tingkat Kemungkinan Setiap Penyakit",
+            "Kemungkinan Penyakit Lainnya",
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -1071,17 +1285,12 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
     if(!_formKey.currentState!.validate()) return;
     
     final formData = ref.read(formDataProvider);
-    // Pastikan semua jawaban memiliki nilai yang valid
-    final Map<String, String> safeAnswers = {};
-    formData.answers.forEach((key, value) {
-      safeAnswers[key] = value ?? 'tidak'; // Fallback ke 'tidak' jika null
-    });
     
     final req = PredictRequest(
       nama: _namaCtrl.text.trim().isEmpty ? "Pengguna" : _namaCtrl.text.trim(),
+      symptoms: formData.answers, // Use string values directly as per API documentation
       includeDetailRules: true,
       ambangPeringatan: formData.ambang,
-      gejala: safeAnswers,
     );
     final notifier = ref.read(_predictStateProvider.notifier);
     await notifier.predict(req);
@@ -1233,6 +1442,758 @@ class _PredictPageState extends ConsumerState<PredictPage> with TickerProviderSt
           ),
         );
       }
+    }
+  }
+
+  Widget _medicationRecommendationsCard(PredictResponse resp) {
+    final recommendations = resp.medicationRecommendations;
+    
+    // Validasi data rekomendasi obat
+    if (recommendations == null || recommendations.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Extract medications and emergency_signs from the API response
+    final medications = recommendations['medications'] as List?;
+    final emergencySigns = recommendations['emergency_signs'] as List?;
+
+    // If both are empty, don't show the card
+    if ((medications == null || medications.isEmpty) && 
+        (emergencySigns == null || emergencySigns.isEmpty)) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF10B981), Color(0xFF059669)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF10B981).withOpacity(0.4),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header Section
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.25),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.3),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.medical_services_rounded,
+                  color: Colors.white,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "💊 Saran Obat & Perawatan",
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "Untuk referensi awal saja",
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          
+          // Medications Section
+          if (medications != null && medications.isNotEmpty) ...[
+            _buildMedicationSection(medications),
+            const SizedBox(height: 16),
+          ],
+          
+          // Emergency Signs Section
+          if (emergencySigns != null && emergencySigns.isNotEmpty) ...[
+            _buildEmergencySignsSection(emergencySigns),
+            const SizedBox(height: 16),
+          ],
+          
+          // Warning Section - Modern Design
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.orange.shade50,
+                  Colors.amber.shade50,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Colors.orange.shade400,
+                width: 2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.orange.withOpacity(0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Single warning icon
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade600,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.orange.shade600.withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.warning_rounded,
+                      color: Colors.white,
+                      size: 26,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "PENTING!",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Colors.orange.shade900,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        "Saran obat ini hanya untuk referensi awal. Pastikan konsultasi dengan dokter atau apoteker sebelum minum obat apapun. Setiap orang punya kondisi kesehatan yang berbeda.",
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          color: Colors.orange.shade900,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMedicationSection(List medications) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF3B82F6).withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: const Color(0xFF3B82F6).withOpacity(0.5),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.medication_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  "💊 Obat yang Disarankan",
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          ...medications.map((med) {
+            if (med is Map) {
+              final name = med['name'] ?? '';
+              final dosage = med['dosage'] ?? '';
+              final explanation = _getSimpleMedicationExplanation(name);
+              
+              return Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF3B82F6),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            name,
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF1E293B),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (explanation.isNotEmpty) ...[
+                      const SizedBox(height: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18),
+                        child: Text(
+                          explanation,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: const Color(0xFF059669),
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.italic,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
+                    if (dosage.isNotEmpty) ...[
+                      const SizedBox(height: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18),
+                        child: Text(
+                          dosage,
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            color: const Color(0xFF64748B),
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          }).toList(),
+        ],
+      ),
+    );
+  }
+
+  String _getSimpleMedicationExplanation(String medName) {
+    final nameLower = medName.toLowerCase();
+    
+    // Paracetamol / Acetaminophen
+    if (nameLower.contains('paracetamol') || nameLower.contains('acetaminophen')) {
+      return '(Obat penurun panas dan pereda nyeri ringan)';
+    }
+    // Ibuprofen
+    else if (nameLower.contains('ibuprofen')) {
+      return '(Obat anti peradangan, penurun panas, dan pereda nyeri)';
+    }
+    // Aspirin
+    else if (nameLower.contains('aspirin') || nameLower.contains('asetosal')) {
+      return '(Obat pereda nyeri, penurun panas, dan pengencer darah)';
+    }
+    // Amoxicillin
+    else if (nameLower.contains('amoxicillin') || nameLower.contains('amoksisilin')) {
+      return '(Antibiotik untuk infeksi bakteri)';
+    }
+    // Cefadroxil
+    else if (nameLower.contains('cefadroxil')) {
+      return '(Antibiotik untuk infeksi kulit dan tenggorokan)';
+    }
+    // Ciprofloxacin
+    else if (nameLower.contains('ciprofloxacin')) {
+      return '(Antibiotik untuk infeksi saluran kemih dan pencernaan)';
+    }
+    // Dexamethasone
+    else if (nameLower.contains('dexamethasone') || nameLower.contains('deksametason')) {
+      return '(Obat anti peradangan kuat)';
+    }
+    // Prednisone
+    else if (nameLower.contains('prednisone')) {
+      return '(Obat anti peradangan dan alergi)';
+    }
+    // Cetirizine
+    else if (nameLower.contains('cetirizine') || nameLower.contains('cetirizin')) {
+      return '(Obat anti alergi / anti gatal)';
+    }
+    // Loratadine
+    else if (nameLower.contains('loratadine') || nameLower.contains('loratadin')) {
+      return '(Obat anti alergi yang tidak menyebabkan kantuk)';
+    }
+    // Diphenhydramine
+    else if (nameLower.contains('diphenhydramine')) {
+      return '(Obat anti alergi dan batuk)';
+    }
+    // Omeprazole
+    else if (nameLower.contains('omeprazole')) {
+      return '(Obat maag / lambung)';
+    }
+    // Ranitidine
+    else if (nameLower.contains('ranitidine') || nameLower.contains('ranitidin')) {
+      return '(Obat untuk mengurangi asam lambung)';
+    }
+    // Antasida
+    else if (nameLower.contains('antasida') || nameLower.contains('antacid')) {
+      return '(Obat untuk menetralkan asam lambung)';
+    }
+    // Loperamide
+    else if (nameLower.contains('loperamide')) {
+      return '(Obat untuk menghentikan diare)';
+    }
+    // Zinc
+    else if (nameLower.contains('zinc') || nameLower.contains('seng')) {
+      return '(Suplemen untuk mempercepat penyembuhan diare)';
+    }
+    // Oralit
+    else if (nameLower.contains('oralit') || nameLower.contains('ors')) {
+      return '(Larutan untuk mencegah dehidrasi)';
+    }
+    // Dextromethorphan
+    else if (nameLower.contains('dextromethorphan')) {
+      return '(Obat penekan batuk kering)';
+    }
+    // Guaifenesin
+    else if (nameLower.contains('guaifenesin')) {
+      return '(Obat pengencer dahak)';
+    }
+    // Bromhexine
+    else if (nameLower.contains('bromhexine') || nameLower.contains('bromheksin')) {
+      return '(Obat pengencer dan pelancar dahak)';
+    }
+    // Ambroxol
+    else if (nameLower.contains('ambroxol')) {
+      return '(Obat pengencer dahak)';
+    }
+    // Salbutamol
+    else if (nameLower.contains('salbutamol')) {
+      return '(Obat untuk melegakan sesak napas)';
+    }
+    // Pseudoephedrine
+    else if (nameLower.contains('pseudoephedrine')) {
+      return '(Obat untuk hidung tersumbat)';
+    }
+    // Vitamin C
+    else if (nameLower.contains('vitamin c') || nameLower.contains('ascorbic')) {
+      return '(Suplemen untuk meningkatkan daya tahan tubuh)';
+    }
+    // Vitamin B Complex
+    else if (nameLower.contains('vitamin b')) {
+      return '(Suplemen untuk metabolisme dan energi)';
+    }
+    // Multivitamin
+    else if (nameLower.contains('multivitamin')) {
+      return '(Suplemen lengkap untuk kesehatan)';
+    }
+    // Metoclopramide
+    else if (nameLower.contains('metoclopramide')) {
+      return '(Obat anti mual dan muntah)';
+    }
+    // Domperidone
+    else if (nameLower.contains('domperidone')) {
+      return '(Obat anti mual dan memperlancar pencernaan)';
+    }
+    else {
+      return '';
+    }
+  }
+
+  Widget _buildEmergencySignsSection(List emergencySigns) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.red.withOpacity(0.4),
+          width: 1.5,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.red.withOpacity(0.5),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.emergency_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  "🚨 Tanda Darurat",
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            "Segera ke rumah sakit jika mengalami:",
+            style: GoogleFonts.poppins(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white.withOpacity(0.95),
+            ),
+          ),
+          const SizedBox(height: 10),
+          ...emergencySigns.map((sign) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.06),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.circle,
+                    size: 8,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      sign.toString(),
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF1E293B),
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildMedicationCategories(Map<String, dynamic> recommendations) {
+    List<Widget> categoryWidgets = [];
+
+    // Iterate through each category in the medication recommendations
+    recommendations.forEach((category, meds) {
+      if (meds is List && meds.isNotEmpty) {
+        final simpleCategoryName = _getSimpleCategoryName(category);
+        final categoryIcon = _getCategoryIcon(category);
+        final categoryColor = _getCategoryColor(category);
+        
+        categoryWidgets.add(
+          Container(
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Category Header
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: categoryColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: categoryColor.withOpacity(0.5),
+                        ),
+                      ),
+                      child: Icon(
+                        categoryIcon,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        simpleCategoryName,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                
+                // Medications Chips
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: meds.map((med) => Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: categoryColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          med.toString(),
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF1E293B),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )).toList(),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    });
+
+    // If no categories found, show a friendly message
+    if (categoryWidgets.isEmpty) {
+      categoryWidgets.add(
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            "Tidak ada rekomendasi obat khusus untuk kondisi ini. Istirahat yang cukup dan hidrasi yang baik sangat dianjurkan.",
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.white.withOpacity(0.9),
+              height: 1.5,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return categoryWidgets;
+  }
+
+  Color _getCategoryColor(String category) {
+    final categoryLower = category.toLowerCase();
+    
+    if (categoryLower.contains('antibiotik') || categoryLower.contains('antibiotic')) {
+      return const Color(0xFF3B82F6); // Blue
+    } else if (categoryLower.contains('analgesik') || categoryLower.contains('pain') || categoryLower.contains('nyeri')) {
+      return const Color(0xFFEF4444); // Red
+    } else if (categoryLower.contains('antipiretik') || categoryLower.contains('fever') || categoryLower.contains('demam')) {
+      return const Color(0xFFF59E0B); // Orange
+    } else if (categoryLower.contains('antihistamin') || categoryLower.contains('allergy') || categoryLower.contains('alergi')) {
+      return const Color(0xFF8B5CF6); // Purple
+    } else if (categoryLower.contains('vitamin') || categoryLower.contains('supplement')) {
+      return const Color(0xFF10B981); // Green
+    } else if (categoryLower.contains('batuk') || categoryLower.contains('cough')) {
+      return const Color(0xFF06B6D4); // Cyan
+    } else if (categoryLower.contains('maag') || categoryLower.contains('lambung')) {
+      return const Color(0xFFEC4899); // Pink
+    } else if (categoryLower.contains('diare') || categoryLower.contains('diarrhea')) {
+      return const Color(0xFF14B8A6); // Teal
+    } else if (categoryLower.contains('pilek') || categoryLower.contains('flu')) {
+      return const Color(0xFF6366F1); // Indigo
+    } else {
+      return const Color(0xFF64748B); // Slate
+    }
+  }
+
+  String _getSimpleCategoryName(String category) {
+    final categoryLower = category.toLowerCase();
+
+    // Map medical terms to simple Indonesian
+    if (categoryLower.contains('antibiotik') || categoryLower.contains('antibiotic')) {
+      return '💊 Obat Antibiotik';
+    } else if (categoryLower.contains('analgesik') || categoryLower.contains('pain') || categoryLower.contains('nyeri')) {
+      return '💊 Obat Pereda Nyeri';
+    } else if (categoryLower.contains('antipiretik') || categoryLower.contains('fever') || categoryLower.contains('demam')) {
+      return '🌡️ Obat Penurun Demam';
+    } else if (categoryLower.contains('antihistamin') || categoryLower.contains('allergy') || categoryLower.contains('alergi')) {
+      return '🤧 Obat Alergi';
+    } else if (categoryLower.contains('vitamin') || categoryLower.contains('supplement')) {
+      return '💚 Vitamin & Suplemen';
+    } else if (categoryLower.contains('batuk') || categoryLower.contains('cough')) {
+      return '🫁 Obat Batuk';
+    } else if (categoryLower.contains('maag') || categoryLower.contains('lambung') || categoryLower.contains('gastric')) {
+      return '🍽️ Obat Maag';
+    } else if (categoryLower.contains('diare') || categoryLower.contains('diarrhea')) {
+      return '💧 Obat Diare';
+    } else if (categoryLower.contains('pilek') || categoryLower.contains('flu') || categoryLower.contains('cold')) {
+      return '❄️ Obat Pilek & Flu';
+    } else if (categoryLower.contains('mual') || categoryLower.contains('nausea')) {
+      return '🤢 Obat Mual';
+    } else if (categoryLower.contains('tenggorokan') || categoryLower.contains('throat')) {
+      return '🗣️ Obat Tenggorokan';
+    } else {
+      // Return original with emoji prefix
+      return '💊 $category';
+    }
+  }
+
+  IconData _getCategoryIcon(String category) {
+    final categoryLower = category.toLowerCase();
+    
+    if (categoryLower.contains('antibiotik') || categoryLower.contains('antibiotic')) {
+      return Icons.science_rounded;
+    } else if (categoryLower.contains('analgesik') || categoryLower.contains('pain') || categoryLower.contains('nyeri')) {
+      return Icons.healing_rounded;
+    } else if (categoryLower.contains('antipiretik') || categoryLower.contains('fever') || categoryLower.contains('demam')) {
+      return Icons.thermostat_rounded;
+    } else if (categoryLower.contains('antihistamin') || categoryLower.contains('allergy') || categoryLower.contains('alergi')) {
+      return Icons.sick_rounded;
+    } else if (categoryLower.contains('vitamin') || categoryLower.contains('supplement')) {
+      return Icons.favorite_rounded;
+    } else if (categoryLower.contains('batuk') || categoryLower.contains('cough')) {
+      return Icons.air_rounded;
+    } else if (categoryLower.contains('maag') || categoryLower.contains('lambung') || categoryLower.contains('gastric')) {
+      return Icons.restaurant_rounded;
+    } else if (categoryLower.contains('diare') || categoryLower.contains('diarrhea')) {
+      return Icons.water_drop_rounded;
+    } else if (categoryLower.contains('pilek') || categoryLower.contains('flu') || categoryLower.contains('cold')) {
+      return Icons.ac_unit_rounded;
+    } else if (categoryLower.contains('mual') || categoryLower.contains('nausea')) {
+      return Icons.sentiment_very_dissatisfied_rounded;
+    } else if (categoryLower.contains('tenggorokan') || categoryLower.contains('throat')) {
+      return Icons.record_voice_over_rounded;
+    } else {
+      return Icons.medication_rounded;
     }
   }
 

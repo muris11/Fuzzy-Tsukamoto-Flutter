@@ -1,30 +1,29 @@
 class PredictRequest {
   String nama;
+  Map<String, String> symptoms;
   bool includeDetailRules;
   double ambangPeringatan;
-  Map<String, String> gejala;
 
   PredictRequest({
     this.nama = "Pengguna",
-    this.includeDetailRules = false, // Sesuaikan dengan default Python
-    this.ambangPeringatan = 60,
-    required this.gejala,
+    required this.symptoms,
+    this.includeDetailRules = false,
+    this.ambangPeringatan = 60.0,
   });
 
   Map<String, dynamic> toJson() {
-    // Pastikan semua nilai gejala tidak null dan bertipe String
-    final Map<String, String> safeGejala = {};
-    gejala.forEach((key, value) {
-      safeGejala[key] = value ?? 'tidak'; // Fallback ke 'tidak' jika null
-    });
-    
-    return {
+    final Map<String, dynamic> data = {
       "nama": nama,
       "include_detail_rules": includeDetailRules,
       "ambang_peringatan": ambangPeringatan,
-      // Expand gejala sebagai field individual sesuai API Python
-      ...safeGejala,
     };
+
+    // Add symptoms as direct properties with string values
+    symptoms.forEach((key, value) {
+      data[key] = value;
+    });
+
+    return data;
   }
 }
 
@@ -38,6 +37,8 @@ class PredictResponse {
   final Map<String, double> inputSkala;
   final Map<String, dynamic>? detailRule;
   final String rekomendasi;
+  final Map<String, dynamic>? medicationRecommendations;
+  final String? htmlReport;
   final String? timestamp;
   final String? apiVersion;
 
@@ -47,7 +48,7 @@ class PredictResponse {
     inputSkala.forEach((key, value) {
       final gejalaBahasa = {
         "fever": "Demam",
-        "cough": "Batuk", 
+        "cough": "Batuk",
         "sore_throat": "Sakit Tenggorokan",
         "headache": "Sakit Kepala",
         "body_ache": "Nyeri Otot/Pegal",
@@ -57,7 +58,7 @@ class PredictResponse {
         "rash": "Ruam Kulit",
         "fatigue": "Lemas/Kelelahan",
       };
-      
+
       String label = gejalaBahasa[key] ?? key;
       String status = value > 0 ? "ya" : "tidak";
       result[label] = status;
@@ -75,6 +76,8 @@ class PredictResponse {
     required this.inputSkala,
     required this.detailRule,
     required this.rekomendasi,
+    this.medicationRecommendations,
+    this.htmlReport,
     this.timestamp,
     this.apiVersion,
   });
@@ -83,15 +86,16 @@ class PredictResponse {
     Map<String,double> mapDouble(Map<String,dynamic>? m){
       final r=<String,double>{};
       if (m != null) {
-        m.forEach((k,v){ 
+        m.forEach((k,v){
           if (v != null) {
-            r[k]=(v as num).toDouble(); 
+            r[k]=(v as num).toDouble();
           }
         });
       }
       return r;
     }
-    
+
+    // Handle API response structure as per documentation
     return PredictResponse(
       nama: json["nama"] as String? ?? "Pengguna",
       diagnosaSementara: json["diagnosa_sementara"] as Map<String, dynamic>?,
@@ -102,6 +106,8 @@ class PredictResponse {
       inputSkala: mapDouble(json["masukan_skala_0_10"] as Map<String,dynamic>?),
       detailRule: json["detail_aturan"] as Map<String, dynamic>?,
       rekomendasi: json["rekomendasi"] as String? ?? "",
+      medicationRecommendations: json["rekomendasi_obat"] as Map<String, dynamic>?,
+      htmlReport: json["html_report"] as String?,
       timestamp: json["timestamp"] as String?,
       apiVersion: json["api_version"] as String?,
     );

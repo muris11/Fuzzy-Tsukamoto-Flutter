@@ -74,33 +74,66 @@ class _InfoPageState extends State<InfoPage> {
             fontWeight: FontWeight.w700,
             fontSize: 20,
             color: const Color(0xFF1E293B),
+            letterSpacing: -0.5,
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        elevation: 2,
+        elevation: 0,
         surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.black12,
+        shadowColor: Colors.black.withOpacity(0.1),
         toolbarHeight: 70,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            height: 1,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withOpacity(0.05),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
           // Page indicator
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _slides.length,
-                (index) => Container(
+                (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
                   margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: _currentPage == index ? 32 : 8,
-                  height: 8,
+                  width: _currentPage == index ? 36 : 10,
+                  height: 10,
                   decoration: BoxDecoration(
-                    color: _currentPage == index
-                        ? _slides[_currentPage].color
-                        : Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
+                    gradient: _currentPage == index
+                        ? LinearGradient(
+                            colors: [
+                              _slides[_currentPage].color,
+                              _slides[_currentPage].color.withOpacity(0.7),
+                            ],
+                          )
+                        : null,
+                    color: _currentPage == index ? null : Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(6),
+                    boxShadow: _currentPage == index
+                        ? [
+                            BoxShadow(
+                              color: _slides[_currentPage].color.withOpacity(0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ]
+                        : null,
                   ),
                 ),
               ),
@@ -136,17 +169,17 @@ class _InfoPageState extends State<InfoPage> {
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 20,
-            offset: const Offset(0, 8),
+            offset: const Offset(0, 4),
           ),
           BoxShadow(
-            color: slide.color.withOpacity(0.1),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: slide.color.withOpacity(0.15),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -157,69 +190,88 @@ class _InfoPageState extends State<InfoPage> {
           children: [
             // Header dengan icon dan title
             Container(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    slide.color.withOpacity(0.15),
-                    slide.color.withOpacity(0.05),
+                    slide.color.withOpacity(0.12),
+                    slide.color.withOpacity(0.03),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(24),
                 border: Border.all(
                   color: slide.color.withOpacity(0.2),
-                  width: 1,
+                  width: 2,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: slide.color.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Column(
                 children: [
                   // Icon container
                   Container(
-                    width: 90,
-                    height: 90,
+                    width: 100,
+                    height: 100,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: slide.color.withOpacity(0.2),
+                        width: 2,
+                      ),
                       boxShadow: [
                         BoxShadow(
-                          color: slide.color.withOpacity(0.2),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                          color: slide.color.withOpacity(0.25),
+                          blurRadius: 20,
+                          offset: const Offset(0, 6),
                         ),
                       ],
                     ),
                     child: Center(
                       child: Icon(
                         slide.icon,
-                        size: 45,
+                        size: 50,
                         color: slide.color,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 24),
                   
                   // Title
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                     decoration: BoxDecoration(
-                      color: slide.color,
-                      borderRadius: BorderRadius.circular(16),
+                      gradient: LinearGradient(
+                        colors: [
+                          slide.color,
+                          slide.color.withOpacity(0.85),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: slide.color.withOpacity(0.3),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
+                          color: slide.color.withOpacity(0.4),
+                          blurRadius: 15,
+                          offset: const Offset(0, 6),
                         ),
                       ],
                     ),
                     child: Text(
                       slide.title,
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: 17,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
+                        letterSpacing: -0.3,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -227,27 +279,30 @@ class _InfoPageState extends State<InfoPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 28),
             
             // Content section
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(18),
+              padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    slide.color.withOpacity(0.1),
-                    slide.color.withOpacity(0.05),
+                    slide.color.withOpacity(0.08),
+                    slide.color.withOpacity(0.03),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: slide.color.withOpacity(0.2)),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: slide.color.withOpacity(0.2),
+                  width: 1.5,
+                ),
                 boxShadow: [
                   BoxShadow(
-                    color: slide.color.withOpacity(0.1),
-                    blurRadius: 12,
+                    color: slide.color.withOpacity(0.08),
+                    blurRadius: 15,
                     offset: const Offset(0, 4),
                   ),
                 ],
@@ -255,9 +310,10 @@ class _InfoPageState extends State<InfoPage> {
               child: Text(
                 slide.content,
                 style: GoogleFonts.poppins(
-                  fontSize: 14,
+                  fontSize: 14.5,
                   color: const Color(0xFF374151),
-                  height: 1.6,
+                  height: 1.7,
+                  letterSpacing: -0.2,
                 ),
                 textAlign: TextAlign.left,
               ),

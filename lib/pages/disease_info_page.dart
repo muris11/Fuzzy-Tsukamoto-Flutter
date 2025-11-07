@@ -18,7 +18,7 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
       name: "Influenza (Flu)",
       nickname: "Flu / Masuk angin berat",
       description: "Flu disebabkan oleh virus yang menyerang saluran pernapasan bagian atas.\n\nBiasanya ditandai dengan demam, batuk, pilek, sakit tenggorokan, nyeri badan, dan lemas.\n\nKebanyakan flu sembuh sendiri dalam beberapa hari, tapi bisa lebih lama kalau daya tahan tubuh sedang turun.",
-      tips: "💡 Tips: Banyak istirahat, minum air hangat, dan hindari udara dingin atau minuman es.",
+      tips: "💡 Obat umum: Paracetamol (Panadol, Biogesic) untuk demam, Ibuprofen (Advil, Nurofen) untuk nyeri. Flu berat mungkin perlu Tamiflu (Oseltamivir) dengan resep dokter.\n\n💡 Tips: Banyak istirahat, minum air hangat minimal 2 liter sehari, makan makanan bergizi seperti sayur, buah, dan sup ayam hangat.",
       resultMessage: "Kamu kemungkinan sedang flu. Istirahat cukup dan perbanyak minum air ya.",
       color: const Color(0xFF3B82F6),
     ),
@@ -27,7 +27,7 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
       name: "Demam Berdarah Dengue (DBD)",
       nickname: "DBD / Demam berdarah",
       description: "Penyakit ini disebabkan oleh gigitan nyamuk Aedes aegypti.\n\nGejalanya meliputi demam tinggi, sakit kepala hebat, nyeri otot dan sendi, mual, serta muncul bintik merah di kulit (ruam).\n\nDBD bisa berbahaya kalau tidak ditangani dengan cepat.",
-      tips: "⚠️ Segera ke dokter kalau mengalami nyeri perut hebat, muntah terus-menerus, atau perdarahan.",
+      tips: "💊 Obat yang aman: HANYA Paracetamol (Panadol) untuk turunkan demam. JANGAN pakai Aspirin atau Ibuprofen karena bisa bikin perdarahan lebih parah!\n\n💧 Minum Oralit atau larutan rehidrasi untuk cegah dehidrasi. DBD berat perlu cairan infus di rumah sakit.\n\n⚠️ Segera ke dokter kalau ada: muntah darah, BAB hitam, mimisan, atau pingsan. Pantau trombosit darah!",
       resultMessage: "Gejalamu mirip demam berdarah. Sebaiknya segera periksa ke dokter atau puskesmas.",
       color: const Color(0xFFEF4444),
     ),
@@ -36,7 +36,7 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
       name: "Demam Tifoid (Tifus / Tipes)",
       nickname: "Tifus / Tipes",
       description: "Tifus disebabkan oleh bakteri Salmonella typhi yang menular lewat makanan atau minuman yang tidak bersih.\n\nGejalanya berupa demam naik-turun, sakit kepala, lemas, nyeri perut, mual, dan bisa juga diare atau sembelit.",
-      tips: "💡 Tips: Istirahat total, makan makanan lembut, dan jaga kebersihan makanan.",
+      tips: "💊 Antibiotik wajib: Ciprofloxacin (Cipro) atau Ceftriaxone (Rocephin) sesuai resep dokter, harus diminum sampai habis 7-14 hari. Tifus berat pakai Azithromycin (Zithromax) atau Meropenem.\n\n🍚 Paracetamol untuk demam. Makan bubur atau nasi tim, hindari sayur mentah dan buah tidak dikupas.\n\n⚠️ Bahaya: BAB berdarah, lubang di usus, atau radang otak - langsung ke RS!",
       resultMessage: "Kamu kemungkinan kena tifus. Banyak istirahat dan segera cek ke dokter, ya.",
       color: const Color(0xFFF59E0B),
     ),
@@ -45,7 +45,7 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
       name: "Gastroenteritis",
       nickname: "Muntaber / Masuk angin perut",
       description: "Terjadi karena infeksi virus atau bakteri di saluran pencernaan.\n\nGejalanya mual, muntah, diare, dan nyeri perut, kadang disertai demam ringan.\n\nBahaya utama penyakit ini adalah dehidrasi, jadi penting untuk tetap minum cairan.",
-      tips: "⚠️ Bahaya utama penyakit ini adalah dehidrasi, jadi penting untuk tetap minum cairan.",
+      tips: "💧 Minum Oralit terus-menerus, sedikit-sedikit tapi sering biar nggak dehidrasi.\n\n💊 Loperamide (Imodium, Diapet) untuk hentikan diare, tapi JANGAN pakai kalau BAB berdarah!\n\n🦠 Kalau ada parasit: Metronidazole (Flagyl). Kalau bakteri: Ciprofloxacin - dengan resep dokter ya.\n\n🍌 Makan pisang, nasi putih, apel parut, roti tawar (diet BRAT). Hindari susu dan gorengan.\n\n⚠️ Bahaya: Dehidrasi berat (bibir kering, mata cekung), BAB berdarah, atau pingsan - langsung ke RS!",
       resultMessage: "Kamu mungkin kena infeksi pencernaan (muntaber). Banyak minum air putih dan hindari makanan berminyak dulu.",
       color: const Color(0xFF10B981),
     ),
@@ -54,7 +54,7 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
       name: "Infeksi Saluran Pernapasan Atas (ISPA)",
       nickname: "Pilek / Radang tenggorokan / Batuk berat",
       description: "ISPA disebabkan oleh virus atau bakteri yang menyerang hidung, tenggorokan, atau paru bagian atas.\n\nBiasanya disertai batuk, demam, sakit tenggorokan, hidung tersumbat, dan tubuh terasa lemas.",
-      tips: "💡 Tips: Minum air hangat, jangan begadang, dan hindari paparan debu atau asap rokok.",
+      tips: "💊 Paracetamol untuk demam dan sakit tenggorokan. Dekongestan (Actifed, Sudafed) untuk hidung tersumbat - hati-hati kalau darah tinggi ya.\n\n🤧 Antihistamin (Claritin, Cetirizine) untuk bersin-bersin dan hidung meler. Semprotan hidung steroid (Avamys, Flixonase) untuk peradangan.\n\n💊 Kalau ada bakteri: Amoxicillin 7-10 hari dengan resep dokter. ISPA berat pakai steroid sistemik.\n\n💡 Minum air hangat, pakai humidifier, kumur air garam hangat. Istirahat cukup!\n\n⚠️ Bahaya: Susah bernapas, sakit dada, demam tinggi tidak turun - langsung ke RS!",
       resultMessage: "Kamu sepertinya kena ISPA, kayak pilek atau radang tenggorokan. Jaga daya tahan tubuh ya.",
       color: const Color(0xFF8B5CF6),
     ),
@@ -86,33 +86,63 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
             fontWeight: FontWeight.w700,
             fontSize: 20,
             color: const Color(0xFF1E293B),
+            letterSpacing: 0.5,
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        elevation: 2,
+        elevation: 0,
         surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.black12,
+        shadowColor: Colors.black.withOpacity(0.1),
         toolbarHeight: 70,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+        ),
       ),
       body: Column(
         children: [
-          // Page indicator
+          // Page indicator with modern design
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _diseases.length,
-                (index) => Container(
+                (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
                   margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: _currentPage == index ? 32 : 8,
-                  height: 8,
+                  width: _currentPage == index ? 36 : 10,
+                  height: 10,
                   decoration: BoxDecoration(
-                    color: _currentPage == index
-                        ? _diseases[_currentPage].color
-                        : Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
+                    gradient: _currentPage == index
+                        ? LinearGradient(
+                            colors: [
+                              _diseases[index].color,
+                              _diseases[index].color.withOpacity(0.7),
+                            ],
+                          )
+                        : null,
+                    color: _currentPage == index ? null : Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: _currentPage == index
+                        ? [
+                            BoxShadow(
+                              color: _diseases[index].color.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ]
+                        : [],
                   ),
                 ),
               ),
@@ -170,7 +200,8 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
             // Header dengan emoji dan nama
             AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              padding: const EdgeInsets.all(24),
+              curve: Curves.easeInOut,
+              padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -180,21 +211,28 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: disease.color.withOpacity(0.2),
-                  width: 1,
+                  color: disease.color.withOpacity(0.3),
+                  width: 2,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: disease.color.withOpacity(0.1),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Column(
                 children: [
-                  // Emoji container yang sederhana
+                  // Emoji container yang modern
                   Container(
-                    width: 90,
-                    height: 90,
+                    width: 100,
+                    height: 100,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
                           color: disease.color.withOpacity(0.2),
@@ -210,48 +248,57 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 24),
                   
                   // Disease name sederhana
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                     decoration: BoxDecoration(
-                      color: disease.color,
-                      borderRadius: BorderRadius.circular(16),
+                      gradient: LinearGradient(
+                        colors: [
+                          disease.color,
+                          disease.color.withOpacity(0.85),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: disease.color.withOpacity(0.3),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
+                          color: disease.color.withOpacity(0.4),
+                          blurRadius: 15,
+                          offset: const Offset(0, 6),
                         ),
                       ],
                     ),
                     child: Text(
                       disease.name,
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: 17,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
+                        letterSpacing: -0.3,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
                   
                   // Nickname
                   Text(
                     disease.nickname,
                     style: GoogleFonts.poppins(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
                       color: disease.color.withOpacity(0.8),
+                      letterSpacing: -0.2,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 28),
             
             // Content section
             Column(
@@ -285,18 +332,28 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
                 // Disclaimer section
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.orange.withOpacity(0.1),
-                        Colors.orange.withOpacity(0.05),
+                        Colors.orange.withOpacity(0.12),
+                        Colors.orange.withOpacity(0.04),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.orange.withOpacity(0.3),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.orange.withOpacity(0.1),
+                        blurRadius: 15,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,27 +362,29 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
                         children: [
                           Icon(
                             Icons.info_outline_rounded,
-                            color: Colors.orange.shade600,
-                            size: 20,
+                            color: Colors.orange.shade700,
+                            size: 22,
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Text(
                             "💡 Saran Umum",
                             style: GoogleFonts.poppins(
-                              fontSize: 14,
+                              fontSize: 15,
                               fontWeight: FontWeight.w700,
-                              color: Colors.orange.shade600,
+                              color: Colors.orange.shade700,
+                              letterSpacing: -0.2,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 14),
                       Text(
                         "Semua hasil dari DiagnoFuzzy hanyalah indikasi awal dan bukan diagnosis pasti.\n\nKalau gejala tidak kunjung membaik atau malah semakin parah, segera periksa ke dokter atau fasilitas kesehatan terdekat.",
                         style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          color: Colors.orange.shade700,
-                          height: 1.6,
+                          fontSize: 13.5,
+                          color: Colors.orange.shade800,
+                          height: 1.7,
+                          letterSpacing: -0.2,
                         ),
                       ),
                     ],
@@ -348,22 +407,25 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
   }) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            color.withOpacity(0.1),
-            color.withOpacity(0.05),
+            color.withOpacity(0.08),
+            color.withOpacity(0.03),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2)),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: color.withOpacity(0.2),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.1),
-            blurRadius: 12,
+            color: color.withOpacity(0.08),
+            blurRadius: 15,
             offset: const Offset(0, 4),
           ),
         ],
@@ -374,29 +436,41 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
           Text(
             title,
             style: GoogleFonts.poppins(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.w700,
               color: color,
+              letterSpacing: -0.2,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
           
           if (isQuote)
             Container(
-              padding: const EdgeInsets.all(14),
+              padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: color.withOpacity(0.1)),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: color.withOpacity(0.15),
+                  width: 1.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withOpacity(0.1),
+                    blurRadius: 10,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: Text(
                 content,
                 style: GoogleFonts.poppins(
-                  fontSize: 14,
+                  fontSize: 14.5,
                   fontStyle: FontStyle.italic,
                   color: color,
-                  height: 1.5,
-                  fontWeight: FontWeight.w500,
+                  height: 1.6,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: -0.2,
                 ),
               ),
             )
@@ -404,9 +478,10 @@ class _DiseaseInfoPageState extends State<DiseaseInfoPage> {
             Text(
               content,
               style: GoogleFonts.poppins(
-                fontSize: 14,
+                fontSize: 14.5,
                 color: const Color(0xFF374151),
-                height: 1.6,
+                height: 1.7,
+                letterSpacing: -0.2,
               ),
             ),
         ],
