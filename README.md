@@ -120,8 +120,8 @@ lib/
 1. **Clone Repository**
 
 ```bash
-git https://github.com/muris11/Fuzzy-tsukamoto---Flutter-Diagnosa-Penyakit-.git
-cd Fuzzy-tsukamoto---Flutter-Diagnosa-Penyakit-
+git clone https://github.com/muris11/Fuzzy-Tsukamoto-Flutter.git
+cd Fuzzy-Tsukamoto-Flutter
 ```
 
 2. **Install Dependencies**
@@ -198,7 +198,7 @@ flutter build web
   - Skor semua penyakit
   - **Rekomendasi obat** berdasarkan diagnosis dan severity
 
-### 4. � Rekomendasi Obat
+### 4. 💊 Rekomendasi Obat
 
 - Lihat daftar **obat yang direkomendasikan** dengan penjelasan dalam bahasa Indonesia
 - Informasi meliputi:
@@ -208,7 +208,7 @@ flutter build web
   - Peringatan khusus
   - Tanda-tanda darurat
 
-### 5. �📄 Generate Laporan
+### 5. � Generate Laporan
 
 - Klik **"Unduh Laporan PDF"**
 - File PDF akan tersimpan otomatis di perangkat
@@ -238,7 +238,7 @@ flutter build web
 - **Detailed Database**: 20+ medications with dosages, side effects, warnings, and emergency signs
 - **Severity-Based Prescribing**: Different recommendations for Ringan, Sedang, Berat, and Sangat Berat conditions
 
-### � Enhanced PDF Reports
+### 📊 Enhanced PDF Reports
 
 - **Modern Design**: Gradient headers, shadow effects, and professional styling
 - **Medication Integration**: Complete drug recommendations included in PDF exports
@@ -399,7 +399,7 @@ Rule 3: IF demam=sedang AND nyeri_perut=tinggi AND mual=tinggi
 
 ### 🐛 Bug Reports
 
-Laporkan bug melalui [GitHub Issues](https://github.com/username/diagnofuzzy/issues) dengan:
+Laporkan bug melalui [GitHub Issues](https://github.com/muris11/Fuzzy-Tsukamoto-Flutter/issues) dengan:
 
 - Deskripsi masalah
 - Steps to reproduce
@@ -472,8 +472,9 @@ SOFTWARE.
 ### 🔗 Links
 
 - 🌐 **Demo**: [Live Demo](https://rifqy11.pythonanywhere.com)
-- 📱 **APK Download**: [Latest Release](https://github.com/username/diagnofuzzy/releases)
+- 📱 **APK Download**: [Latest Release](https://github.com/muris11/Fuzzy-Tsukamoto-Flutter/releases)
 - 📊 **API Documentation**: [Backend API Docs](https://rifqy11.pythonanywhere.com/docs)
+- 📂 **Repository**: [GitHub Repository](https://github.com/muris11/Fuzzy-Tsukamoto-Flutter)
 
 ---
 
